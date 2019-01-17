@@ -17,7 +17,7 @@ export class AppComponent {
         { timeLeft: 30 },
         { timeLeft: 60 },
         { timeLeft: 120 },
-        { timeLeft: 300 },
+        { timeLeft: 300, notifyAt: [290, 280, 270, 260, 250] },
         { timeLeft: 3600 }
     ];
 
