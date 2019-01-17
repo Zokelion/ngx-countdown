@@ -8,6 +8,24 @@
         </p>
     </div>
     <div class="row">
-        <div class="col-6"><ngx-countdown></ngx-countdown></div>
+        <div class="col-6 border" *ngFor="let config of testConfigs; let i = index">
+            <h4 class="text-center">{{ config.timeLeft }} seconds</h4>
+            <div class="row">
+                <div class="col-6">
+                    <ngx-countdown
+                        [config]="config"
+                        (started)="timerStarted(i)"
+                        (finished)="timerFinished(i)"
+                        (notify)="timerNotified(i, $event)"
+                        #timer
+                    ></ngx-countdown>
+                </div>
+                <div class="col-6">
+                    <button class="btn btn-primary" (click)="addTime(i, 5)">+5 seconds</button>
+                    <button class="btn btn-primary" (click)="startTimer(i)">Start</button>
+                    <button class="btn btn-primary" (click)="stopTimer(i)">Stop</button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
