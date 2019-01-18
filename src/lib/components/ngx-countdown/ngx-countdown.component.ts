@@ -1,6 +1,6 @@
 import { Component, OnInit, EventEmitter, Input, SimpleChanges, OnChanges, Output } from '@angular/core';
-import { NgxCountdownNotifyEvent } from 'src/lib/models/notify-event.model';
-import { NgxCountdownConfig } from 'src/lib/models/config.model';
+import { NgxCountdownNotifyEvent } from '../../models/notify-event.model';
+import { NgxCountdownConfig } from '../../models/config.model';
 
 @Component({
     // tslint:disable-next-line:component-selector
@@ -23,10 +23,10 @@ export class NgxCountdownComponent implements OnInit, OnChanges {
     public userConfig: NgxCountdownConfig;
 
     public remainingTime: number;
+    public config: NgxCountdownConfig;
 
     protected _timer: NodeJS.Timer;
     protected _isRunning: boolean;
-    protected _config: NgxCountdownConfig;
 
     protected _defaultConfig: NgxCountdownConfig = {
         notifyAt: [],
@@ -65,7 +65,7 @@ export class NgxCountdownComponent implements OnInit, OnChanges {
         // Merging user config with default one to have every values set
         this._configUpdated(this.userConfig);
 
-        this.remainingTime = this._config.timeLeft;
+        this.remainingTime = this.config.timeLeft;
     }
 
     public ngOnChanges(changes: SimpleChanges): void {
@@ -77,8 +77,8 @@ export class NgxCountdownComponent implements OnInit, OnChanges {
 
     public start() {
         if (!this._timer) {
-            console.log('If this (', this.remainingTime === this._config.timeLeft, ") is true I'ma fire started");
-            if (this.remainingTime === this._config.timeLeft) {
+            console.log('If this (', this.remainingTime === this.config.timeLeft, ") is true I'ma fire started");
+            if (this.remainingTime === this.config.timeLeft) {
                 this.started.emit();
             }
 
@@ -100,13 +100,13 @@ export class NgxCountdownComponent implements OnInit, OnChanges {
     }
 
     protected _configUpdated(config: NgxCountdownConfig) {
-        this._config = {
+        this.config = {
             ...this._defaultConfig,
             ...config
         };
     }
 
     protected _hasToNotify() {
-        return this._config.notifyAt.some((timeToNotify: number) => timeToNotify === this.remainingTime);
+        return this.config.notifyAt.some((timeToNotify: number) => timeToNotify === this.remainingTime);
     }
 }
