@@ -77,7 +77,6 @@ export class NgxCountdownComponent implements OnInit, OnChanges {
 
     public start() {
         if (!this._timer) {
-            console.log('If this (', this.remainingTime === this.config.timeLeft, ") is true I'ma fire started");
             if (this.remainingTime === this.config.timeLeft) {
                 this.started.emit();
             }
@@ -91,6 +90,11 @@ export class NgxCountdownComponent implements OnInit, OnChanges {
             clearInterval(this._timer);
             this._timer = null;
         }
+    }
+
+    public reset() {
+        this.stop();
+        this.remainingTime = this.config.timeLeft;
     }
 
     protected _notify() {

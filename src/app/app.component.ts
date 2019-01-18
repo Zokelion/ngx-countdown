@@ -1,4 +1,4 @@
-import { Component, QueryList, ViewChildren } from '@angular/core';
+import { Component, QueryList, ViewChildren, ViewChild } from '@angular/core';
 import { NgxCountdownConfig } from 'src/lib/models/config.model';
 import { NgxCountdownComponent } from 'src/lib/components/ngx-countdown/ngx-countdown.component';
 import { NgxCountdownNotifyEvent } from 'src/lib/models/notify-event.model';
@@ -12,6 +12,9 @@ export class AppComponent {
     @ViewChildren('timer')
     public timers: QueryList<NgxCountdownComponent>;
 
+    @ViewChild('singleTimer')
+    public singleTimer: NgxCountdownComponent;
+
     public testConfigs: NgxCountdownConfig[] = [
         { timeLeft: 0 },
         { timeLeft: 30 },
@@ -21,24 +24,37 @@ export class AppComponent {
         { timeLeft: 3600 }
     ];
 
-    public addTime(timerIndex: number, seconds: number) {
-        const timerConfig = this.testConfigs[timerIndex];
+    public singleConfig: NgxCountdownConfig = {
+        timeLeft: 10
+    };
 
-        const config = {
-            ...timerConfig,
-            timeLeft: timerConfig.timeLeft + seconds
-        };
+    public addTime(seconds: number, timerIndex?: number) {
+        if (timerIndex !== undefined) {
+            const timerConfig = this.testConfigs[timerIndex];
 
-        this.testConfigs[timerIndex] = config;
+            const config = {
+                ...timerConfig,
+                timeLeft: timerConfig.timeLeft + seconds
+            };
+
+            this.testConfigs[timerIndex] = config;
+        } else {
+            this.singleConfig = {
+                ...this.singleConfig,
+                timeLeft: this.singleConfig.timeLeft + seconds
+            };
+
+            this.singleTimer.reset();
+        }
     }
 
-    public startTimer(index: number) {
+    public startTimer(index?: number) {
         const timer = this._getTimer(index);
 
         timer.start();
     }
 
-    public stopTimer(index: number) {
+    public stopTimer(index?: number) {
         const timer = this._getTimer(index);
 
         timer.stop();
@@ -61,6 +77,6 @@ export class AppComponent {
             throw new Error("Can't get timer at index " + index + '. Max index is ' + this.timers.length);
         }
 
-        return this.timers.toArray()[index];
+        return index === undefined ? this.singleTimer : this.timers.toArray()[index];
     }
 }
