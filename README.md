@@ -86,9 +86,10 @@ export class AppComponent {
 
 You can then call the following methods:
 
-| Name  | Parameters | Return type | Description                                                                                                 |
-| ----- | ---------- | ----------- | ----------------------------------------------------------------------------------------------------------- |
-| start | none       | void        | Starts the timer and makes it continue after a call to stop()                                               |
-| stop  | none       | void        | Stops the countdown. Actually, this could be named pause() as well since that's exactly he job it performs. |
+| Name  | Parameters | Return type | Description                                                                                                                                                                                               |
+| ----- | ---------- | ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| start | none       | void        | Starts the timer and makes it continue after a call to stop()                                                                                                                                             |
+| stop  | none       | void        | Stops the countdown. Actually, this could be named pause() as well since that's exactly he job it performs.                                                                                               |
+| reset | none       | void        | Resets the countdown, causing it to get paused and brought back to config.timeLeft. If you want a change to your config.timeLeft to take effect immediately, you need to call this right after the update |
 
 And we're done for now guys, hope this will be useful to you, now do some fun things and enjoy coding 😎
