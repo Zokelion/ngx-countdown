@@ -2,7 +2,7 @@
     "$schema": "../../node_modules/ng-packagr/package.schema.json",
     "name": "@zokelion/ngx-countdown",
     "version": "1.0.0",
-    "description": "Ngx Bootstrap Treeview - Simpl library to visualize, search and interact with tree data",
+    "description": "ngx-countdown is a light and easy to use Angular library that will give you access to a countdown display component",
     "repository": {
         "type": "git",
         "url": "https://github.com/Zokelion/ngx-countdown"
